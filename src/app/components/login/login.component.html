@@ -1,0 +1,54 @@
+<div class="flex h-full justify-center items-center mt-[-4rem]">
+  <div class="flex flex-col items-center max-w-[250px] w-full">
+    <img src="../../../assets/images/Leaffy.png" alt="" />
+    <form class="flex flex-col gap-4 w-full mt-2" (ngSubmit)="onSubmit()">
+      <div class="flex flex-col">
+        <input
+          class="placeholder:text-slate-500 placeholder:text-sm py-2 px-4 outline-none border-2 border-neutral-700 rounded-sm text-neutral-800 focus:border-green-800 focus:ring-green-800 duration-150"
+          type="email"
+          name="email"
+          id="email"
+          placeholder="Enter email"
+          [(ngModel)]="email"
+          (click)="clearError()"
+        />
+      </div>
+      <div class="flex flex-col">
+        <input
+          class="placeholder:text-slate-500 placeholder:text-sm p-2 px-4 outline-none border-2 border-neutral-700 rounded-sm text-neutral-800 focus:border-green-800 focus:ring-green-800 duration-150"
+          type="password"
+          name="password"
+          id="password"
+          placeholder="Enter password"
+          [(ngModel)]="password"
+          (click)="clearError()"
+        />
+      </div>
+      <div class="flex gap-2 items-center">
+        <input
+          class="checked:bg-green-800 border-2 rounded-sm border-neutral-700 focus:ring-0 focus:ring-transparent text-green-800 duration-150"
+          type="checkbox"
+          name="remember"
+          id="remember"
+          [(ngModel)]="rememberMe"
+        />
+        <label class="text-sm text-neutral-800" for="remember">
+          Remember me</label
+        >
+      </div>
+      <button
+        class="w-full py-2 px-4 bg-neutral-800 text-white rounded-sm hover:bg-green-800 focus:bg-green-800 duration-150"
+        type="submit"
+      >
+        Login
+      </button>
+      <div
+        *ngIf="isError"
+        class="w-full bg-red-600 text-white flex gap-2 items-center p-4 rounded-sm"
+      >
+        <fa-icon [icon]="errorIcon"></fa-icon>
+        <span class="text-sm">{{ errorMsg }}</span>
+      </div>
+    </form>
+  </div>
+</div>

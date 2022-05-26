@@ -1,0 +1,12 @@
+<div class="p-5">
+  <div class="flex justify-between items-center max-w-7xl m-auto">
+    <a routerLink="/">
+      <img src="../../../assets/images/Leaffy.png" alt="Leaffy" class="w-20" />
+    </a>
+    <nav></nav>
+    <div>
+      <a *ngIf="!isAuth" routerLink="/login">Login</a>
+      <div *ngIf="isAuth">{{ user.email }}</div>
+    </div>
+  </div>
+</div>
