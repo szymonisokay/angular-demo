@@ -6,7 +6,9 @@
     <nav></nav>
     <div>
       <a *ngIf="!isAuth" routerLink="/login">Login</a>
-      <div *ngIf="isAuth">{{ user.email }}</div>
+      <div *ngIf="isAuth">
+        {{ user.username }} <button (click)="logout()">Log out</button>
+      </div>
     </div>
   </div>
 </div>

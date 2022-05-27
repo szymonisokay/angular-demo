@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { faExclamationCircle } from '@fortawesome/free-solid-svg-icons';
+import { Subscription } from 'rxjs';
 import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
@@ -14,8 +15,16 @@ export class LoginComponent implements OnInit {
   isError: boolean = false;
   errorMsg: string = '';
   errorIcon = faExclamationCircle;
+  subscription: Subscription;
 
-  constructor(private auth: AuthService) {}
+  constructor(private auth: AuthService) {
+    this.subscription = this.auth
+      .getUser()
+      .subscribe(({ isError, errorMsg }) => {
+        this.isError = isError;
+        this.errorMsg = errorMsg;
+      });
+  }
 
   ngOnInit(): void {}
 

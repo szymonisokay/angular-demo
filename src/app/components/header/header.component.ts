@@ -1,6 +1,15 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from 'src/app/services/auth.service';
 import { Subscription } from 'rxjs';
+import { User } from 'src/app/interfaces/UserInterface';
+
+const initialState = {
+  _id: '',
+  username: '',
+  email: '',
+  image: '',
+  token: '',
+};
 
 @Component({
   selector: 'app-header',
@@ -8,16 +17,23 @@ import { Subscription } from 'rxjs';
   styleUrls: ['./header.component.css'],
 })
 export class HeaderComponent implements OnInit {
-  user: any = {};
+  user: User = initialState;
   isAuth: boolean = false;
   subscription: Subscription;
 
   constructor(private auth: AuthService) {
-    this.subscription = this.auth.getUser().subscribe((value) => {
-      this.user = { ...value };
-      this.isAuth = true;
+    this.subscription = this.auth.getUser().subscribe(({ user, isAuth }) => {
+      this.user = user;
+      this.isAuth = isAuth;
     });
   }
 
-  ngOnInit(): void {}
+  logout = () => {
+    this.auth.logout();
+    this.isAuth = false;
+  };
+
+  ngOnInit(): void {
+    this.auth.getUserFromStorage();
+  }
 }
