@@ -9,6 +9,8 @@ import { LoginComponent } from './components/login/login.component';
 import { HeaderComponent } from './components/header/header.component';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
+import { RegisterComponent } from './components/register/register.component';
+import { UserComponent } from './components/user/user.component';
 
 @NgModule({
   declarations: [
@@ -16,6 +18,8 @@ import { DashboardComponent } from './components/dashboard/dashboard.component';
     LoginComponent,
     HeaderComponent,
     DashboardComponent,
+    RegisterComponent,
+    UserComponent,
   ],
   imports: [
     BrowserModule,

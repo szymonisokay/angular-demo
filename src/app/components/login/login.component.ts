@@ -9,11 +9,11 @@ import { AuthService } from 'src/app/services/auth.service';
   styleUrls: ['./login.component.css'],
 })
 export class LoginComponent implements OnInit {
-  email: string = '';
-  password: string = '';
-  rememberMe: boolean = false;
-  isError: boolean = false;
-  errorMsg: string = '';
+  email: string;
+  password: string;
+  rememberMe: boolean;
+  isError: boolean;
+  errorMsg: string;
   errorIcon = faExclamationCircle;
   subscription: Subscription;
 

@@ -1,14 +1,14 @@
 import { Component, OnInit } from '@angular/core';
-import { AuthService } from 'src/app/services/auth.service';
 import { Subscription } from 'rxjs';
 import { User } from 'src/app/interfaces/UserInterface';
+import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
-  selector: 'app-header',
-  templateUrl: './header.component.html',
-  styleUrls: ['./header.component.css'],
+  selector: 'app-user',
+  templateUrl: './user.component.html',
+  styleUrls: ['./user.component.css'],
 })
-export class HeaderComponent implements OnInit {
+export class UserComponent implements OnInit {
   user: User;
   isAuth: boolean;
   subscription: Subscription;
@@ -19,11 +19,6 @@ export class HeaderComponent implements OnInit {
       this.isAuth = isAuth;
     });
   }
-
-  logout = () => {
-    this.auth.logout();
-    this.isAuth = false;
-  };
 
   ngOnInit(): void {
     this.auth.getUserFromStorage();

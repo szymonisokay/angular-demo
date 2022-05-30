@@ -4,7 +4,7 @@ import { Router } from '@angular/router';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { User } from '../interfaces/UserInterface';
 
-const URL = 'http://localhost:5000/api/auth/login';
+const URL = 'http://localhost:5000/api/auth';
 
 const httpOptions = {
   headers: new HttpHeaders({
@@ -24,12 +24,30 @@ const initialState = {
   providedIn: 'root',
 })
 export class AuthService {
-  private user: User = initialState;
+  private user: User;
   private userSubject = new Subject<any>();
-  private errorSubject = new Subject<any>();
-  private isAuth: boolean = false;
-  private isError: boolean = false;
-  private errorMsg: string = '';
+  private isAuth: boolean;
+  private isError: boolean;
+  private errorMsg: string;
+
+  private observer = {
+    next: (user: User) => {
+      this.user = user;
+      this.isAuth = true;
+      this.storeUserData(this.user);
+      this.router.navigate(['/']);
+
+      this.userSubject.next({ user: this.user, isAuth: this.isAuth });
+    },
+    error: (err: any) => {
+      this.errorMsg = err.error.message;
+      this.isError = true;
+      this.userSubject.next({
+        errorMsg: this.errorMsg,
+        isError: this.isError,
+      });
+    },
+  };
 
   constructor(private router: Router, private http: HttpClient) {}
 
@@ -47,24 +65,15 @@ export class AuthService {
   };
 
   login = (email: string, password: string, rememberMe: boolean) => {
-    this.http.post<User>(URL, { email, password }, httpOptions).subscribe(
-      (user) => {
-        this.user = user;
-        this.isAuth = true;
-        this.storeUserData(this.user);
-        this.router.navigate(['/']);
+    this.http
+      .post<User>(`${URL}/login`, { email, password }, httpOptions)
+      .subscribe(this.observer);
+  };
 
-        this.userSubject.next({ user: this.user, isAuth: this.isAuth });
-      },
-      (error) => {
-        this.errorMsg = error.error.message;
-        this.isError = true;
-        this.userSubject.next({
-          errorMsg: this.errorMsg,
-          isError: this.isError,
-        });
-      }
-    );
+  register = (userData: Object) => {
+    this.http
+      .post<User>(`${URL}/register`, userData, httpOptions)
+      .subscribe(this.observer);
   };
 
   logout = () => {

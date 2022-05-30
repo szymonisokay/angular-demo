@@ -7,6 +7,17 @@
       <div class="flex flex-col">
         <input
           class="placeholder:text-slate-500 placeholder:text-sm py-2 px-4 outline-none border-2 border-neutral-700 rounded-sm text-neutral-800 focus:border-green-800 focus:ring-green-800 duration-150"
+          type="text"
+          name="username"
+          id="username"
+          placeholder="Enter username"
+          [(ngModel)]="username"
+          (click)="clearError()"
+        />
+      </div>
+      <div class="flex flex-col">
+        <input
+          class="placeholder:text-slate-500 placeholder:text-sm py-2 px-4 outline-none border-2 border-neutral-700 rounded-sm text-neutral-800 focus:border-green-800 focus:ring-green-800 duration-150"
           type="email"
           name="email"
           id="email"
@@ -26,23 +37,23 @@
           (click)="clearError()"
         />
       </div>
-      <div class="flex gap-2 items-center">
+      <div class="flex flex-col">
         <input
-          class="checked:bg-green-800 border-2 rounded-sm border-neutral-700 focus:ring-0 focus:ring-transparent text-green-800 duration-150"
-          type="checkbox"
-          name="remember"
-          id="remember"
-          [(ngModel)]="rememberMe"
+          class="placeholder:text-slate-500 placeholder:text-sm p-2 px-4 outline-none border-2 border-neutral-700 rounded-sm text-neutral-800 focus:border-green-800 focus:ring-green-800 duration-150"
+          type="password"
+          name="password2"
+          id="password2"
+          placeholder="Confirm password"
+          [(ngModel)]="password2"
+          (click)="clearError()"
         />
-        <label class="text-sm text-neutral-800" for="remember">
-          Remember me</label
-        >
       </div>
+
       <button
         class="w-full py-2 px-4 bg-neutral-800 text-white rounded-sm hover:bg-green-800 focus:bg-green-800 duration-150"
         type="submit"
       >
-        Login
+        Register
       </button>
       <div
         *ngIf="isError"
@@ -53,11 +64,11 @@
       </div>
     </form>
     <p class="text-sm pt-2">
-      Already have an account?
+      Don't have an account?
       <a
         class="text-green-800 hover:underline hover:underline-offset-2 duration-150"
-        routerLink="/register"
-        >Sign Up</a
+        routerLink="/login"
+        >Sign In</a
       >
     </p>
   </div>
